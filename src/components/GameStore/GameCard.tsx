@@ -1,74 +1,84 @@
 import {
   Card,
   CardBody,
-  CardFooter,
   SimpleGrid,
   Image,
   HStack,
   Flex,
-  Badge,
   Heading,
   CardHeader,
+  Icon,
 } from "@chakra-ui/react";
-import logo from "../../assets/logo.webp";
-import placeHolder from "../../assets/no-image-placeholder.webp";
-import bulletsEye from "../../assets/bulls-eye.webp";
+import useGames, { Platform } from "../../hooks/useGames";
+import {
+  FaWindows,
+  FaPlaystation,
+  FaXbox,
+  FaApple,
+  FaLinux,
+  FaAndroid,
+} from "react-icons/fa";
+import { MdPhoneIphone } from "react-icons/md";
+import { SiNintendo } from "react-icons/si";
+import { BsGlobe } from "react-icons/bs";
+import { IconType } from "react-icons";
+
+interface Props {
+  platforms: Platform[];
+}
+
+const PlatformIconList = ({ platforms = [] }: Props) => {
+  const iconMap: { [key: string]: IconType } = {
+    pc: FaWindows,
+    playstation: FaPlaystation,
+    xbox: FaXbox,
+    nintendo: SiNintendo,
+    mac: FaApple,
+    linux: FaLinux,
+    android: FaAndroid,
+    ios: MdPhoneIphone,
+    web: BsGlobe,
+  };
+
+  return (
+    <HStack marginY={1}>
+      {platforms.map((platform) => (
+        <Icon key={platform.id} as={iconMap[platform.slug]} color="gray.500" />
+      ))}
+    </HStack>
+  );
+};
 
 const GameCard = () => {
-  const cards = [
-    {
-      img: placeHolder,
-      logos: [logo, logo, logo],
-      score: 90,
-      title: "Grand Theft Auto V",
-      popular: bulletsEye,
-    },
-    {
-      img: placeHolder,
-      logos: [logo],
-      score: 80,
-      title: "Watch Dogs",
-      popular: bulletsEye,
-    },
-    {
-      img: placeHolder,
-      logos: [logo, logo],
-      score: 50,
-      title: "GTA V",
-      popular: bulletsEye,
-    },
-  ];
+  const { games } = useGames();
 
   return (
     <SimpleGrid spacing={10} minChildWidth={300}>
-      {cards.map((card, index) => (
-        <Card key={index}>
+      {games.map((game) => (
+        <Card key={game.id}>
           <CardHeader p="0">
-            <Image src={card.img} alt={card.title} borderRadius="lg" />
+            <Image
+              src={game.background_image}
+              alt={game.name}
+              borderRadius="lg"
+            />
           </CardHeader>
           <CardBody flexDirection="column">
             <Flex justifyContent="space-between" w="100%">
-              <HStack>
-                {card.logos.map((logo, idx) => (
-                  <Image
-                    key={idx}
-                    src={logo}
-                    alt={`Logo ${idx + 1}`}
-                    boxSize="20px"
-                  />
-                ))}
-              </HStack>
-              <Badge variant="subtle" colorScheme="green">
+              <PlatformIconList
+                platforms={game.parent_platforms.map((p) => p.platform)}
+              />
+              {/* <Badge variant="subtle" colorScheme="green">
                 {card.score}
-              </Badge>
+              </Badge> */}
             </Flex>
             <Heading as="h3" fontSize={32} mt="5">
-              {card.title}
+              {game.name}
             </Heading>
           </CardBody>
-          <CardFooter pt="0">
+          {/* <CardFooter pt="0">
             <Image src={card.popular} w={10} />
-          </CardFooter>
+          </CardFooter> */}
         </Card>
       ))}
     </SimpleGrid>
