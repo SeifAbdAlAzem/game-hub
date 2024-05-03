@@ -36,7 +36,7 @@ const NavBar = () => {
         />
       </InputGroup>
 
-      <FormControl display="flex" alignItems="center" w="12%">
+      <FormControl display="flex" alignItems="center" w="13%">
         <Switch
           id="dark-mode"
           colorScheme="green"

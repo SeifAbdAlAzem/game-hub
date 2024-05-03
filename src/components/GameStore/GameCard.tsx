@@ -8,6 +8,8 @@ import {
   Heading,
   CardHeader,
   Icon,
+  Text,
+  Badge,
 } from "@chakra-ui/react";
 import useGames, { Platform } from "../../hooks/useGames";
 import {
@@ -22,6 +24,8 @@ import { MdPhoneIphone } from "react-icons/md";
 import { SiNintendo } from "react-icons/si";
 import { BsGlobe } from "react-icons/bs";
 import { IconType } from "react-icons";
+import getCroppedImageUrl from "../../services/image-url";
+import GameCardSkeleton from "./GameCardSkeleton";
 
 interface Props {
   platforms: Platform[];
@@ -50,38 +54,57 @@ const PlatformIconList = ({ platforms = [] }: Props) => {
 };
 
 const GameCard = () => {
-  const { games } = useGames();
+  const { games, error, isLoading } = useGames();
+  const skeletons = [1, 2, 3, 4, 5, 6];
 
   return (
-    <SimpleGrid spacing={10} minChildWidth={300}>
-      {games.map((game) => (
-        <Card key={game.id}>
-          <CardHeader p="0">
-            <Image
-              src={game.background_image}
-              alt={game.name}
-              borderRadius="lg"
-            />
-          </CardHeader>
-          <CardBody flexDirection="column">
-            <Flex justifyContent="space-between" w="100%">
-              <PlatformIconList
-                platforms={game.parent_platforms.map((p) => p.platform)}
+    <>
+      {error && <Text>{error}</Text>}
+
+      <SimpleGrid spacing={10} minChildWidth={300}>
+        {isLoading &&
+          skeletons.map((skeleton) => <GameCardSkeleton key={skeleton} />)}
+
+        {games.map((game) => (
+          <Card key={game.id}>
+            <CardHeader p="0">
+              <Image
+                src={getCroppedImageUrl(game.background_image)}
+                alt={game.name}
+                borderRadius="lg"
               />
-              {/* <Badge variant="subtle" colorScheme="green">
-                {card.score}
-              </Badge> */}
-            </Flex>
-            <Heading as="h3" fontSize={32} mt="5">
-              {game.name}
-            </Heading>
-          </CardBody>
-          {/* <CardFooter pt="0">
+            </CardHeader>
+            <CardBody flexDirection="column">
+              <Flex justifyContent="space-between" w="100%">
+                <PlatformIconList
+                  platforms={game.parent_platforms.map((p) => p.platform)}
+                />
+                <Badge
+                  variant="subtle"
+                  colorScheme={
+                    game.metacritic >= 90
+                      ? "green"
+                      : game.metacritic >= 80
+                      ? "yellow"
+                      : "red"
+                  }
+                  borderRadius="6px"
+                  p="4px 10px"
+                >
+                  {game.metacritic}
+                </Badge>
+              </Flex>
+              <Heading as="h3" fontSize={32} mt="5">
+                {game.name}
+              </Heading>
+            </CardBody>
+            {/* <CardFooter pt="0">
             <Image src={card.popular} w={10} />
           </CardFooter> */}
-        </Card>
-      ))}
-    </SimpleGrid>
+          </Card>
+        ))}
+      </SimpleGrid>
+    </>
   );
 };
 
