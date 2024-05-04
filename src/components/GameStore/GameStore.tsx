@@ -13,7 +13,7 @@ const GameStore = () => {
         </GridItem>
       </Show>
 
-      <GridItem colSpan={{ base: 6, lg: 5 }}>
+      <GridItem colSpan={{ base: 6, lg: 5 }} pb={10}>
         <GameHeading></GameHeading>
         <GameFilter></GameFilter>
         <GameCard></GameCard>

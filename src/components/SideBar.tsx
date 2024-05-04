@@ -10,15 +10,30 @@ import {
 } from "@chakra-ui/react";
 import useGenres, { Genres } from "../hooks/useGenres";
 import NoImagePlaceholder from "../assets/no-image-placeholder.webp";
+import getCroppedImageUrl from "../services/image-url";
 
 const GameItem = ({ name, image_background, games_count }: Genres) => {
   return (
-    <HStack as="li" spacing="2" align="flex-start">
-      <Image src={image_background} w="22px" h="22px" />
-      <Button variant="link" textAlign="left">
-        {name}
-      </Button>
-      <Badge>{games_count}</Badge>
+    <HStack
+      as="li"
+      spacing="2"
+      alignItems="center"
+      justifyContent="space-between"
+    >
+      <Box display="flex">
+        <Image
+          src={getCroppedImageUrl(image_background)}
+          boxSize="32px"
+          borderRadius={8}
+          mr={2}
+        />
+        <Button variant="link" textAlign="left">
+          {name === "Massively Multiplayer" ? "Multiplayer" : name}
+        </Button>
+      </Box>
+      <Badge borderRadius="6px" p={1}>
+        {games_count}
+      </Badge>
     </HStack>
   );
 };
@@ -26,12 +41,12 @@ const GameItem = ({ name, image_background, games_count }: Genres) => {
 const SideBar = () => {
   const { data, error, isLoading } = useGenres();
 
-  {
-    error && <Box as="aside">Error: {error}</Box>;
+  if (error) {
+    return <Box as="aside">Error: {error}</Box>;
   }
 
-  {
-    isLoading && (
+  if (isLoading) {
+    return (
       <Box as="aside">
         <Spinner />
       </Box>
