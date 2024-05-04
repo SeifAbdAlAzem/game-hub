@@ -54,7 +54,7 @@ const PlatformIconList = ({ platforms = [] }: Props) => {
 };
 
 const GameCard = () => {
-  const { games, error, isLoading } = useGames();
+  const { data, error, isLoading } = useGames();
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   return (
@@ -65,7 +65,7 @@ const GameCard = () => {
         {isLoading &&
           skeletons.map((skeleton) => <GameCardSkeleton key={skeleton} />)}
 
-        {games.map((game) => (
+        {data.map((game) => (
           <Card key={game.id}>
             <CardHeader p="0">
               <Image

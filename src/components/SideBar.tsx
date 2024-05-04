@@ -24,7 +24,7 @@ const GameItem = ({ name, image_background, games_count }: Genres) => {
 };
 
 const SideBar = () => {
-  const { genres, error, isLoading } = useGenres();
+  const { data, error, isLoading } = useGenres();
 
   {
     error && <Box as="aside">Error: {error}</Box>;
@@ -44,7 +44,7 @@ const SideBar = () => {
         Genres
       </Heading>
       <Stack as="ul" spacing="5" pt="4">
-        {genres.map((genre) => (
+        {data.map((genre) => (
           <GameItem
             key={genre.id}
             name={genre.name}
