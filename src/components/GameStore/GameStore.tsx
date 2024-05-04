@@ -8,7 +8,7 @@ const GameStore = () => {
   return (
     <Grid templateColumns="repeat(6, 1fr)" pt="8" px="6">
       <Show above="lg">
-        <GridItem colSpan={1}>
+        <GridItem colSpan={1} pr={10}>
           <SideBar></SideBar>
         </GridItem>
       </Show>
