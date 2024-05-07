@@ -8,37 +8,15 @@ import {
   Button,
   Badge,
 } from "@chakra-ui/react";
-import useGenres, { Genres } from "../hooks/useGenres";
+import useGenres, { Genre } from "../hooks/useGenres";
 import NoImagePlaceholder from "../assets/no-image-placeholder.webp";
 import getCroppedImageUrl from "../services/image-url";
 
-const GameItem = ({ name, image_background, games_count }: Genres) => {
-  return (
-    <HStack
-      as="li"
-      spacing="2"
-      alignItems="center"
-      justifyContent="space-between"
-    >
-      <Box display="flex">
-        <Image
-          src={getCroppedImageUrl(image_background)}
-          boxSize="32px"
-          borderRadius={8}
-          mr={2}
-        />
-        <Button variant="link" textAlign="left">
-          {name === "Massively Multiplayer" ? "Multiplayer" : name}
-        </Button>
-      </Box>
-      <Badge borderRadius="6px" p={1}>
-        {games_count}
-      </Badge>
-    </HStack>
-  );
-};
+interface Props {
+  onSelectGenre: (genre: Genre) => void;
+}
 
-const SideBar = () => {
+const SideBar = ({ onSelectGenre }: Props) => {
   const { data, error, isLoading } = useGenres();
 
   if (error) {
@@ -56,16 +34,42 @@ const SideBar = () => {
   return (
     <Box as="aside">
       <Heading as="h2" fontSize="3xl">
-        Genres
+        Genre
       </Heading>
       <Stack as="ul" spacing="5" pt="4">
         {data.map((genre) => (
-          <GameItem
+          <HStack
+            as="li"
+            spacing="2"
+            alignItems="center"
+            justifyContent="space-between"
             key={genre.id}
-            name={genre.name}
-            image_background={genre.image_background || NoImagePlaceholder}
-            games_count={genre.games_count}
-          />
+          >
+            <Box display="flex">
+              <Image
+                src={
+                  genre.image_background
+                    ? getCroppedImageUrl(genre.image_background)
+                    : NoImagePlaceholder
+                }
+                boxSize="32px"
+                borderRadius={8}
+                mr={2}
+              />
+              <Button
+                variant="link"
+                textAlign="left"
+                onClick={() => onSelectGenre(genre)}
+              >
+                {genre.name === "Massively Multiplayer"
+                  ? "Multiplayer"
+                  : genre.name}
+              </Button>
+            </Box>
+            <Badge borderRadius="6px" p={1}>
+              {genre.games_count}
+            </Badge>
+          </HStack>
         ))}
       </Stack>
     </Box>

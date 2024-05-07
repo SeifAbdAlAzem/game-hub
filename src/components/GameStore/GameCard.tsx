@@ -26,7 +26,11 @@ import { BsGlobe } from "react-icons/bs";
 import { IconType } from "react-icons";
 import getCroppedImageUrl from "../../services/image-url";
 import GameCardSkeleton from "./GameCardSkeleton";
+import { Genre } from "../../hooks/useGenres";
 
+interface GameCardsProps {
+  selectedGenre: Genre | null;
+}
 interface Props {
   platforms: Platform[];
 }
@@ -53,8 +57,8 @@ const PlatformIconList = ({ platforms = [] }: Props) => {
   );
 };
 
-const GameCard = () => {
-  const { data, error, isLoading } = useGames();
+const GameCard = ({ selectedGenre }: GameCardsProps) => {
+  const { data, error, isLoading } = useGames(selectedGenre);
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   return (
