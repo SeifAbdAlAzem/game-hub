@@ -5,14 +5,22 @@ import GameHeading from "./GameHeading";
 import GameFilter from "./GameFilter";
 import { useState } from "react";
 import { Genre } from "../../hooks/useGenres";
+import { GamePlatform } from "../../hooks/usePlatform";
 
 const GameStore = () => {
   const [genreName, setGenreName] = useState("");
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
+  const [selectedPlatform, setSelectedPlatform] = useState<GamePlatform | null>(
+    null
+  );
 
   const handleSelectGenre = (genre: Genre) => {
     setGenreName(genre.name);
     setSelectedGenre(genre);
+  };
+
+  const handleSelectedPlatform = (platform: GamePlatform) => {
+    setSelectedPlatform(platform);
   };
 
   return (
@@ -28,8 +36,14 @@ const GameStore = () => {
 
       <GridItem colSpan={{ base: 6, lg: 5 }} pb={10}>
         <GameHeading genreName={genreName}></GameHeading>
-        <GameFilter></GameFilter>
-        <GameCard selectedGenre={selectedGenre}></GameCard>
+        <GameFilter
+          onSelectPlatform={handleSelectedPlatform}
+          selectedPlatform={selectedPlatform}
+        ></GameFilter>
+        <GameCard
+          selectedGenre={selectedGenre}
+          selectedPlatform={selectedPlatform}
+        ></GameCard>
       </GridItem>
     </Grid>
   );

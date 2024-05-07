@@ -8,20 +8,33 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
-import usePlatform from "../../hooks/usePlatform";
+import usePlatform, { GamePlatform } from "../../hooks/usePlatform";
 
-const GameFilter = () => {
+interface GameFilterProps {
+  onSelectPlatform: (platform: GamePlatform) => void;
+  selectedPlatform: GamePlatform | null;
+}
+
+const GameFilter = ({
+  onSelectPlatform,
+  selectedPlatform,
+}: GameFilterProps) => {
   const { data } = usePlatform();
 
   return (
     <HStack spacing={2} my={5}>
       <Menu aria-label="Platforms" variant="filled">
         <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-          Select Platform
+          {selectedPlatform ? selectedPlatform.name : "Select Platform"}
         </MenuButton>
         <MenuList>
           {data.map((platform) => (
-            <MenuItem key={platform.id}>{platform.name}</MenuItem>
+            <MenuItem
+              key={platform.id}
+              onClick={() => onSelectPlatform(platform)}
+            >
+              {platform.name}
+            </MenuItem>
           ))}
         </MenuList>
       </Menu>

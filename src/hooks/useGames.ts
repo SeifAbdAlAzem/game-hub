@@ -1,5 +1,6 @@
 import useData from "./useData";
 import { Genre } from "./useGenres";
+import { GamePlatform } from "./usePlatform";
 
 export interface Platform {
     id: number;
@@ -21,12 +22,13 @@ interface Game {
     genre: GameGenre[];
 }
 
-const useGames = (selectedGenre: Genre | null) => {
-    // Extract the id of the selected genre
+const useGames = (selectedGenre: Genre | null, selectedPlatform: GamePlatform | null) => {
+    // Extract the id of the selected genre and platform
     const genreId = selectedGenre ? selectedGenre.id : null;
+    const platformId = selectedPlatform ? selectedPlatform.id : null;
 
     // Use the id of the selected genre in the request configuration
-    return useData<Game>('/games', { params: { genres: genreId } }, [genreId]);
+    return useData<Game>('/games', { params: { genres: genreId, platforms: platformId } }, [genreId, platformId]);
 }
 
 

@@ -27,9 +27,11 @@ import { IconType } from "react-icons";
 import getCroppedImageUrl from "../../services/image-url";
 import GameCardSkeleton from "./GameCardSkeleton";
 import { Genre } from "../../hooks/useGenres";
+import { GamePlatform } from "../../hooks/usePlatform";
 
 interface GameCardsProps {
   selectedGenre: Genre | null;
+  selectedPlatform: GamePlatform | null;
 }
 interface Props {
   platforms: Platform[];
@@ -57,8 +59,8 @@ const PlatformIconList = ({ platforms = [] }: Props) => {
   );
 };
 
-const GameCard = ({ selectedGenre }: GameCardsProps) => {
-  const { data, error, isLoading } = useGames(selectedGenre);
+const GameCard = ({ selectedGenre, selectedPlatform }: GameCardsProps) => {
+  const { data, error, isLoading } = useGames(selectedGenre, selectedPlatform);
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   return (
