@@ -19,7 +19,10 @@ const GameStore = () => {
     <Grid templateColumns="repeat(6, 1fr)" pt="8" px="6">
       <Show above="lg">
         <GridItem colSpan={1} pr={10}>
-          <SideBar onSelectGenre={handleSelectGenre}></SideBar>
+          <SideBar
+            onSelectGenre={handleSelectGenre}
+            selectedGenre={selectedGenre}
+          ></SideBar>
         </GridItem>
       </Show>
 

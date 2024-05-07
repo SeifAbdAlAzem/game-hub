@@ -14,9 +14,10 @@ import getCroppedImageUrl from "../services/image-url";
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
 
-const SideBar = ({ onSelectGenre }: Props) => {
+const SideBar = ({ onSelectGenre, selectedGenre }: Props) => {
   const { data, error, isLoading } = useGenres();
 
   if (error) {
@@ -60,6 +61,7 @@ const SideBar = ({ onSelectGenre }: Props) => {
                 variant="link"
                 textAlign="left"
                 onClick={() => onSelectGenre(genre)}
+                fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
               >
                 {genre.name === "Massively Multiplayer"
                   ? "Multiplayer"
