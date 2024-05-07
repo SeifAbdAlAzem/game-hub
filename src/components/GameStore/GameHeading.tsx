@@ -1,7 +1,7 @@
 import { Heading } from "@chakra-ui/react";
 
 interface GameHeadingProps {
-  genreName: string;
+  genreName?: string;
 }
 
 const GameHeading = ({ genreName }: GameHeadingProps) => {

@@ -27,7 +27,7 @@ const useGames = (gameQuery: GameQuery) => {
     const platformId = gameQuery.platform ? gameQuery.platform.id : null;
 
     // Use the id of the selected genre in the request configuration
-    return useData<Game>('/games', { params: { genres: genreId, platforms: platformId } }, [gameQuery]);
+    return useData<Game>('/games', { params: { genres: genreId, platforms: platformId, ordering: gameQuery.sortOrder } }, [gameQuery]);
 }
 
 

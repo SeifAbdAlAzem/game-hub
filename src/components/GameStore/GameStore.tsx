@@ -10,19 +10,22 @@ import { GamePlatform } from "../../hooks/usePlatform";
 export interface GameQuery {
   genre: Genre | null;
   platform: GamePlatform | null;
+  sortOrder: string;
 }
 
 const GameStore = () => {
   const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
-  const [genreName, setGenreName] = useState("");
 
   const handleSelectGenre = (genre: Genre) => {
-    setGenreName(genre.name);
     setGameQuery({ ...gameQuery, genre });
   };
 
   const handleSelectedPlatform = (platform: GamePlatform) => {
     setGameQuery({ ...gameQuery, platform });
+  };
+
+  const handleSortOrder = (sortOrder: string) => {
+    setGameQuery({ ...gameQuery, sortOrder });
   };
 
   return (
@@ -37,15 +40,14 @@ const GameStore = () => {
       </Show>
 
       <GridItem colSpan={{ base: 6, lg: 5 }} pb={10}>
-        <GameHeading genreName={genreName}></GameHeading>
+        <GameHeading genreName={gameQuery.genre?.name}></GameHeading>
         <GameFilter
           onSelectPlatform={handleSelectedPlatform}
+          onSelectSortOrder={handleSortOrder}
           selectedPlatform={gameQuery.platform}
+          sortOrder={gameQuery.sortOrder}
         ></GameFilter>
-        <GameCard
-          selectedGenre={gameQuery.genre}
-          selectedPlatform={gameQuery.platform}
-        ></GameCard>
+        <GameCard gameQuery={gameQuery}></GameCard>
       </GridItem>
     </Grid>
   );

@@ -5,21 +5,37 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Select,
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import usePlatform, { GamePlatform } from "../../hooks/usePlatform";
 
 interface GameFilterProps {
   onSelectPlatform: (platform: GamePlatform) => void;
+  onSelectSortOrder: (sortOrder: string) => void;
   selectedPlatform: GamePlatform | null;
+  sortOrder: string;
 }
 
 const GameFilter = ({
   onSelectPlatform,
+  onSelectSortOrder,
   selectedPlatform,
+  sortOrder,
 }: GameFilterProps) => {
   const { data } = usePlatform();
+
+  const sortOrders = [
+    { value: "", label: "Relevance" },
+    { value: "-added", label: "Date added" },
+    { value: "name", label: "Name" },
+    { value: "-released", label: "Release date" },
+    { value: "-metacritic", label: "Popularity" },
+    { value: "-rating", label: "Average rating" },
+  ];
+
+  const currentSortOrder = sortOrders.find(
+    (order) => order.value === sortOrder
+  );
 
   return (
     <HStack spacing={2} my={5}>
@@ -38,16 +54,23 @@ const GameFilter = ({
           ))}
         </MenuList>
       </Menu>
-      <Select
-        placeholder="Order by: Relevance"
-        aria-label="Order"
-        variant="filled"
-        w="fit-content"
-      >
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-      </Select>
+
+      <Menu aria-label="Sort" variant="filled">
+        <MenuButton as={Button} rightIcon={<BsChevronDown />}>
+          Order by: {currentSortOrder?.label || "Relevance"}
+        </MenuButton>
+        <MenuList>
+          {sortOrders.map((order) => (
+            <MenuItem
+              onClick={() => onSelectSortOrder(order.value)}
+              key={order.value}
+              value={order.value}
+            >
+              {order.label}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
     </HStack>
   );
 };
