@@ -1,4 +1,3 @@
-import { SearchIcon } from "@chakra-ui/icons";
 import {
   AspectRatio,
   FormControl,
@@ -13,10 +12,17 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import logo from "../assets/logo.webp";
+import { useRef } from "react";
+import { BsSearch } from "react-icons/bs";
 
-const NavBar = () => {
+interface NavBarProps {
+  onSearch: (searchText: string) => void;
+}
+
+const NavBar = ({ onSearch }: NavBarProps) => {
   const { toggleColorMode } = useColorMode();
   const secondryTextColor = useColorModeValue("gray.600", "gray.400");
+  const SearchRef = useRef<HTMLInputElement>(null);
 
   return (
     <HStack p={2} spacing="2" color={secondryTextColor}>
@@ -24,19 +30,29 @@ const NavBar = () => {
         <Image src={logo} alt="logo" />
       </AspectRatio>
 
-      <InputGroup>
-        <InputLeftElement pointerEvents="none">
-          <SearchIcon color="gray.300" />
-        </InputLeftElement>
-        <Input
-          type="text"
-          placeholder="Search games..."
-          borderRadius={20}
-          variant="filled"
-        />
-      </InputGroup>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (SearchRef.current) onSearch(SearchRef.current.value);
+        }}
+      >
+        <InputGroup>
+          <InputLeftElement children={<BsSearch />} color="gray.300" />
+          <Input
+            ref={SearchRef}
+            borderRadius={20}
+            placeholder="Search games..."
+            variant="filled"
+          />
+        </InputGroup>
+      </form>
 
-      <FormControl display="flex" alignItems="center" w="13%">
+      <FormControl
+        display="flex"
+        alignItems="center"
+        w="fit-content"
+        whiteSpace="nowrap"
+      >
         <Switch
           id="dark-mode"
           colorScheme="green"
