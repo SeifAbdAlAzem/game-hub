@@ -34,8 +34,8 @@ const SideBar = ({ onSelectGenre, selectedGenre }: Props) => {
 
   return (
     <Box as="aside">
-      <Heading as="h2" fontSize="3xl">
-        Genre
+      <Heading as="h2" fontSize="2xl" mb={3}>
+        Genres
       </Heading>
       <Stack as="ul" spacing="5" pt="4">
         {data.map((genre) => (
@@ -46,7 +46,7 @@ const SideBar = ({ onSelectGenre, selectedGenre }: Props) => {
             justifyContent="space-between"
             key={genre.id}
           >
-            <Box display="flex">
+            <Box display="flex" alignItems="center">
               <Image
                 src={
                   genre.image_background
@@ -56,16 +56,16 @@ const SideBar = ({ onSelectGenre, selectedGenre }: Props) => {
                 boxSize="32px"
                 borderRadius={8}
                 mr={2}
+                objectFit="cover"
               />
               <Button
                 variant="link"
                 textAlign="left"
                 onClick={() => onSelectGenre(genre)}
                 fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+                whiteSpace="normal"
               >
-                {genre.name === "Massively Multiplayer"
-                  ? "Multiplayer"
-                  : genre.name}
+                {genre.name}
               </Button>
             </Box>
             <Badge borderRadius="6px" p={1}>
