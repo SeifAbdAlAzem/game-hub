@@ -79,54 +79,52 @@ const GameCard = ({ gameQuery }: GameCardsProps) => {
   const { data, error, isLoading } = useGames(gameQuery);
   const skeletons = [1, 2, 3, 4, 5, 6];
 
+  if (error) return <Text>{error}</Text>;
+
   return (
-    <>
-      {error && <Text>{error}</Text>}
+    <SimpleGrid spacing={10} minChildWidth={300}>
+      {isLoading &&
+        skeletons.map((skeleton) => <GameCardSkeleton key={skeleton} />)}
 
-      <SimpleGrid spacing={10} minChildWidth={300}>
-        {isLoading &&
-          skeletons.map((skeleton) => <GameCardSkeleton key={skeleton} />)}
-
-        {data.map((game) => (
-          <Card key={game.id}>
-            <CardHeader p="0">
-              <Image
-                src={getCroppedImageUrl(game.background_image)}
-                alt={game.name}
-                borderRadius="lg"
+      {data.map((game) => (
+        <Card key={game.id}>
+          <CardHeader p="0">
+            <Image
+              src={getCroppedImageUrl(game.background_image)}
+              alt={game.name}
+              borderRadius="lg"
+            />
+          </CardHeader>
+          <CardBody flexDirection="column">
+            <Flex justifyContent="space-between" w="100%">
+              <PlatformIconList
+                platforms={game.parent_platforms.map((p) => p.platform)}
               />
-            </CardHeader>
-            <CardBody flexDirection="column">
-              <Flex justifyContent="space-between" w="100%">
-                <PlatformIconList
-                  platforms={game.parent_platforms.map((p) => p.platform)}
-                />
-                <Badge
-                  variant="subtle"
-                  colorScheme={
-                    game.metacritic >= 90
-                      ? "green"
-                      : game.metacritic >= 80
-                      ? "yellow"
-                      : "red"
-                  }
-                  borderRadius="6px"
-                  p="4px 10px"
-                >
-                  {game.metacritic}
-                </Badge>
-              </Flex>
-              <Heading as="h3" fontSize={32} mt="5">
-                {game.name}
-              </Heading>
-            </CardBody>
-            <CardFooter pt="0">
-              <Emoji rating={game.rating_top}></Emoji>
-            </CardFooter>
-          </Card>
-        ))}
-      </SimpleGrid>
-    </>
+              <Badge
+                variant="subtle"
+                colorScheme={
+                  game.metacritic >= 90
+                    ? "green"
+                    : game.metacritic >= 80
+                    ? "yellow"
+                    : "red"
+                }
+                borderRadius="6px"
+                p="4px 10px"
+              >
+                {game.metacritic}
+              </Badge>
+            </Flex>
+            <Heading as="h3" fontSize={32} mt="5">
+              {game.name}
+            </Heading>
+          </CardBody>
+          <CardFooter pt="0">
+            <Emoji rating={game.rating_top}></Emoji>
+          </CardFooter>
+        </Card>
+      ))}
+    </SimpleGrid>
   );
 };
 
