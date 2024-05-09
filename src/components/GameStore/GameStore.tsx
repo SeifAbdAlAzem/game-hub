@@ -48,7 +48,7 @@ const GameStore = () => {
         </Show>
 
         <GridItem colSpan={{ base: 6, lg: 5 }} pb={10}>
-          <GameHeading genreName={gameQuery.genre?.name}></GameHeading>
+          <GameHeading gameQuery={gameQuery}></GameHeading>
           <GameFilter
             onSelectPlatform={handleSelectedPlatform}
             onSelectSortOrder={handleSortOrder}

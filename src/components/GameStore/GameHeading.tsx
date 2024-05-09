@@ -1,11 +1,16 @@
 import { Heading } from "@chakra-ui/react";
+import { GameQuery } from "./GameStore";
 
 interface GameHeadingProps {
-  genreName?: string;
+  gameQuery: GameQuery;
 }
 
-const GameHeading = ({ genreName }: GameHeadingProps) => {
-  return <Heading>{genreName} Games</Heading>;
+const GameHeading = ({ gameQuery }: GameHeadingProps) => {
+  return (
+    <Heading>
+      {gameQuery.platform?.name || ""} {gameQuery.genre?.name || ""} Games
+    </Heading>
+  );
 };
 
 export default GameHeading;
