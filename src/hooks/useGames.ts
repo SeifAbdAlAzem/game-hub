@@ -1,4 +1,4 @@
-import { GameQuery } from "../components/GameStore/GameStore";
+import { GameQuery } from "../components/GameStore";
 import useData from "./useData";
 
 export interface Platform {
@@ -12,7 +12,7 @@ interface GameGenre {
     name: string;
 }
 
-interface Game {
+export interface Game {
     id: number;
     name: string;
     background_image: string;
