@@ -22,8 +22,8 @@ const apiClient = new APIClient<Game>('/games');
 
 const useGames = (gameQuery: GameQuery) => {
     // Extract the id of the selected genre and platform
-    const genreId = gameQuery.genre ? gameQuery.genre.id : null;
-    const platformId = gameQuery.platform ? gameQuery.platform.id : null;
+    const genreId = gameQuery.genreId ? gameQuery.genreId : null;
+    const platformId = gameQuery.platformId ? gameQuery.platformId : null;
     const fetchGames = ({pageParam = 1}) =>
         apiClient
             .getAll({

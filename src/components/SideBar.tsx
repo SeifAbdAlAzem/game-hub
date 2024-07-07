@@ -3,11 +3,11 @@ import useGenres, { Genre } from "../hooks/useGenres";
 import GenreList from "./GenreList";
 
 interface SideBarProps {
-  onSelectGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+  onSelectGenre: (genreId: Genre) => void;
+  selectedGenreId?: number;
 }
 
-const SideBar = ({ onSelectGenre, selectedGenre }: SideBarProps) => {
+const SideBar = ({ onSelectGenre, selectedGenreId }: SideBarProps) => {
   const { error, isLoading } = useGenres();
 
   if (error) {
@@ -27,7 +27,10 @@ const SideBar = ({ onSelectGenre, selectedGenre }: SideBarProps) => {
       <Heading as="h2" fontSize="2xl" mb={3}>
         Genres
       </Heading>
-      <GenreList onSelectGenre={onSelectGenre} selectedGenre={selectedGenre} />
+      <GenreList
+        onSelectGenre={onSelectGenre}
+        selectedGenreId={selectedGenreId}
+      />
     </Box>
   );
 };

@@ -4,20 +4,24 @@ import usePlatform, { GamePlatform } from "../hooks/usePlatform";
 
 interface PlatformSelectorProps {
   onSelectPlatform: (platform: GamePlatform) => void;
-  selectedPlatform: GamePlatform | null;
+  selectedPlatformId?: number;
 }
 
 const PlatformSelector = ({
   onSelectPlatform,
-  selectedPlatform,
+  selectedPlatformId,
 }: PlatformSelectorProps) => {
   const { data, error } = usePlatform();
+  const selectedPlatform = data.results.find(
+    (p) => p.id === selectedPlatformId
+  );
+
   if (error) return null;
 
   return (
     <Menu aria-label="Platforms" variant="filled">
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        {selectedPlatform ? selectedPlatform.name : "Select Platform"}
+        {selectedPlatform ? selectedPlatform?.name : "Select Platform"}
       </MenuButton>
       <MenuList>
         {data?.results.map((platform) => (

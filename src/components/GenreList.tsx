@@ -12,11 +12,11 @@ import NoImagePlaceholder from "../assets/no-image-placeholder.webp";
 import getCroppedImageUrl from "../services/image-url";
 
 interface GenreListProps {
-  onSelectGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+  onSelectGenre: (genreId: Genre) => void;
+  selectedGenreId?: number;
 }
 
-const GenreList = ({ onSelectGenre, selectedGenre }: GenreListProps) => {
+const GenreList = ({ onSelectGenre, selectedGenreId }: GenreListProps) => {
   const { data, error, isLoading } = useGenres();
 
   if (error) {
@@ -57,7 +57,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: GenreListProps) => {
               variant="link"
               textAlign="left"
               onClick={() => onSelectGenre(genre)}
-              fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
+              fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
               whiteSpace="normal"
             >
               {genre.name}

@@ -6,21 +6,21 @@ import { GamePlatform } from "../hooks/usePlatform";
 interface GameFilterProps {
   onSelectPlatform: (platform: GamePlatform) => void;
   onSelectSortOrder: (sortOrder: string) => void;
-  selectedPlatform: GamePlatform | null;
+  selectedPlatformId?: number;
   sortOrder: string;
 }
 
 const GameFilter = ({
   onSelectPlatform,
   onSelectSortOrder,
-  selectedPlatform,
+  selectedPlatformId,
   sortOrder,
 }: GameFilterProps) => {
   return (
     <HStack spacing={2} my={5}>
       <PlatformSelector
         onSelectPlatform={onSelectPlatform}
-        selectedPlatform={selectedPlatform}
+        selectedPlatformId={selectedPlatformId}
       />
 
       <SortSelector
