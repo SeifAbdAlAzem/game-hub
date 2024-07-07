@@ -11,7 +11,7 @@ const SideBar = ({ onSelectGenre, selectedGenre }: SideBarProps) => {
   const { error, isLoading } = useGenres();
 
   if (error) {
-    return <Box as="aside">Error: {error}</Box>;
+    return <Box as="aside">Error: {error.message}</Box>;
   }
 
   if (isLoading) {

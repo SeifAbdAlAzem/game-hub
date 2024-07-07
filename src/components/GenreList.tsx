@@ -20,7 +20,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: GenreListProps) => {
   const { data, error, isLoading } = useGenres();
 
   if (error) {
-    return <Box as="aside">Error: {error}</Box>;
+    return <Box as="aside">Error: {error.message}</Box>;
   }
 
   if (isLoading) {
@@ -33,7 +33,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: GenreListProps) => {
 
   return (
     <Stack as="ul" spacing="5" pt="4">
-      {data.map((genre) => (
+      {data?.results.map((genre) => (
         <HStack
           as="li"
           spacing="2"
