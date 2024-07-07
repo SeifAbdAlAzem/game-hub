@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { GameQuery } from "../App";
-import { GamePlatform } from "./usePlatform";
+import { GamePlatform } from "./usePlatforms";
 import APIClient, { FetchResponse } from "../services/api-client";
 
 interface GameGenre {

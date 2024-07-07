@@ -6,7 +6,7 @@ import GameGrid from "./components/GameGrid";
 import GameFilter from "./components/GameFilter";
 import { useState } from "react";
 import { Genre } from "./hooks/useGenres";
-import { GamePlatform } from "./hooks/usePlatform";
+import { GamePlatform } from "./hooks/usePlatforms";
 
 export interface GameQuery {
   genreId?: number;

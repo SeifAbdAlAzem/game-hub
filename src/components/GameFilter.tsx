@@ -1,7 +1,7 @@
 import { HStack } from "@chakra-ui/react";
 import PlatformSelector from "./PlatformSelector";
 import SortSelector from "./SortSelector";
-import { GamePlatform } from "../hooks/usePlatform";
+import { GamePlatform } from "../hooks/usePlatforms";
 
 interface GameFilterProps {
   onSelectPlatform: (platform: GamePlatform) => void;
