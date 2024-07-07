@@ -1,13 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { GameQuery } from "../App";
-import apiClient, { FetchResponse } from "../services/api-client";
-
-
-export interface Platform {
-    id: number;
-    name: string;
-    slug: string;
-}
+import { GamePlatform } from "./usePlatform";
+import APIClient, { FetchResponse } from "../services/api-client";
 
 interface GameGenre {
     id: number;
@@ -18,11 +12,13 @@ export interface Game {
     id: number;
     name: string;
     background_image: string;
-    parent_platforms: {platform: Platform}[];
+    parent_platforms: {platform: GamePlatform}[];
     metacritic: number;
     genre: GameGenre[];
     rating_top: number;
 }
+
+const apiClient = new APIClient<Game>('/games');
 
 const useGames = (gameQuery: GameQuery) => {
     // Extract the id of the selected genre and platform
@@ -30,15 +26,14 @@ const useGames = (gameQuery: GameQuery) => {
     const platformId = gameQuery.platform ? gameQuery.platform.id : null;
     const fetchGames = () =>
         apiClient
-            .get<FetchResponse<Game>>('/games', {
+            .getAll({
                 params: {
                     genres: genreId,
                     parent_platforms: platformId,
                     ordering: gameQuery.sortOrder,
-                    search: gameQuery.searchText }
-                })
-            .then(res => res.data);
-
+                    search: gameQuery.searchText
+                },
+            });
 
     // Use the id of the selected genre in the request configuration
     return useQuery<FetchResponse<Game>, Error>({
