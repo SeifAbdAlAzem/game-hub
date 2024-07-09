@@ -1,13 +1,8 @@
 import { Heading, Box, Spinner } from "@chakra-ui/react";
-import useGenres, { Genre } from "../hooks/useGenres";
+import useGenres from "../hooks/useGenres";
 import GenreList from "./GenreList";
 
-interface SideBarProps {
-  onSelectGenre: (genreId: Genre) => void;
-  selectedGenreId?: number;
-}
-
-const SideBar = ({ onSelectGenre, selectedGenreId }: SideBarProps) => {
+const SideBar = () => {
   const { error, isLoading } = useGenres();
 
   if (error) {
@@ -27,10 +22,7 @@ const SideBar = ({ onSelectGenre, selectedGenreId }: SideBarProps) => {
       <Heading as="h2" fontSize="2xl" mb={3}>
         Genres
       </Heading>
-      <GenreList
-        onSelectGenre={onSelectGenre}
-        selectedGenreId={selectedGenreId}
-      />
+      <GenreList />
     </Box>
   );
 };

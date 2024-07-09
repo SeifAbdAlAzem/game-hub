@@ -8,11 +8,7 @@ import logo from "../assets/logo.webp";
 import SearchInput from "./SearchInput";
 import ColorModeSwitch from "./ColorModeSwitch";
 
-interface NavBarProps {
-  onSearch: (searchText: string) => void;
-}
-
-const NavBar = ({ onSearch }: NavBarProps) => {
+const NavBar = () => {
   const secondryTextColor = useColorModeValue("gray.600", "gray.400");
 
   return (
@@ -21,7 +17,7 @@ const NavBar = ({ onSearch }: NavBarProps) => {
         <Image src={logo} alt="logo" />
       </AspectRatio>
 
-      <SearchInput onSearch={onSearch} />
+      <SearchInput />
 
       <ColorModeSwitch />
     </HStack>

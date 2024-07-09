@@ -7,17 +7,15 @@ import {
   Button,
   Badge,
 } from "@chakra-ui/react";
-import useGenres, { Genre } from "../hooks/useGenres";
+import useGenres from "../hooks/useGenres";
 import NoImagePlaceholder from "../assets/no-image-placeholder.webp";
 import getCroppedImageUrl from "../services/image-url";
+import useGameStore from "../store";
 
-interface GenreListProps {
-  onSelectGenre: (genreId: Genre) => void;
-  selectedGenreId?: number;
-}
-
-const GenreList = ({ onSelectGenre, selectedGenreId }: GenreListProps) => {
+const GenreList = () => {
   const { data, error, isLoading } = useGenres();
+  const setGenreId = useGameStore((s) => s.setGenreId);
+  const selectedGenreId = useGameStore((s) => s.gameQuery.genreId);
 
   if (error) {
     return <Box as="aside">Error: {error.message}</Box>;
@@ -56,7 +54,7 @@ const GenreList = ({ onSelectGenre, selectedGenreId }: GenreListProps) => {
             <Button
               variant="link"
               textAlign="left"
-              onClick={() => onSelectGenre(genre)}
+              onClick={() => setGenreId(genre.id)}
               fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
               whiteSpace="normal"
             >
