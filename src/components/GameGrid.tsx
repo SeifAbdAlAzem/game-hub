@@ -1,4 +1,4 @@
-import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
+import { Box, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
@@ -16,12 +16,13 @@ const GameGrid = () => {
     data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;
 
   return (
-    <>
+    <Box overflow={"visible"} className="I am HERE">
       <InfiniteScroll
         dataLength={fetchedGamesCount}
         next={() => fetchNextPage()}
         hasMore={!!hasNextPage}
         loader={<Spinner />}
+        style={{ overflow: "visible" }}
       >
         <SimpleGrid spacing={10} minChildWidth={300}>
           {isLoading &&
@@ -49,7 +50,7 @@ const GameGrid = () => {
           {isFetchingNextPage ? "Loading..." : "Load More"}
         </Button>
       )} */}
-    </>
+    </Box>
   );
 };
 

@@ -4,7 +4,7 @@ import SortSelector from "./SortSelector";
 
 const GameFilter = () => {
   return (
-    <HStack spacing={2} my={5}>
+    <HStack spacing={2} mt={5} mb={8}>
       <PlatformSelector />
 
       <SortSelector />

@@ -19,8 +19,6 @@ interface GameCardsProps {
 }
 
 const GameCard = ({ game }: GameCardsProps) => {
-  // const selectedGameId = useGameStore((s) => s.gameQuery.gameId);
-  // const setGameId = useGameStore((s) => s.setGameId);
   return (
     <Link to={`/games/${game.slug}`}>
       <Card>
