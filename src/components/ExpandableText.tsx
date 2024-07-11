@@ -16,7 +16,7 @@ const ExpandableText = ({ children }: ExpandableTextProps) => {
   const summary = expanded ? children : children.substring(0, limit) + "...";
 
   return (
-    <Text>
+    <Text mt={5}>
       {summary}
       <Button
         size="xs"
