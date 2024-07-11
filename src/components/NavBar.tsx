@@ -7,6 +7,7 @@ import {
 import logo from "../assets/logo.webp";
 import SearchInput from "./SearchInput";
 import ColorModeSwitch from "./ColorModeSwitch";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const secondryTextColor = useColorModeValue("gray.600", "gray.400");
@@ -14,7 +15,9 @@ const NavBar = () => {
   return (
     <HStack p={2} spacing="2" color={secondryTextColor}>
       <AspectRatio ratio={1} w={20}>
-        <Image src={logo} alt="logo" />
+        <Link to={"/"}>
+          <Image src={logo} alt="logo" />
+        </Link>
       </AspectRatio>
 
       <SearchInput />
