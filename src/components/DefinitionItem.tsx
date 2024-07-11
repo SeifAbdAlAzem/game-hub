@@ -8,11 +8,11 @@ interface DefinitionItemProps {
 
 const DefinitionItem = ({ term, children }: DefinitionItemProps) => {
   return (
-    <Box marginY={5}>
+    <Box as="dl" marginY={5}>
       <Heading as="dt" fontSize="md" color="gray.600">
         {term}
       </Heading>
-      <dd>{children}</dd>
+      <Box as="dd">{children}</Box>
     </Box>
   );
 };
