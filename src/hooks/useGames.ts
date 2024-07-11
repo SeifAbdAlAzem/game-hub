@@ -4,11 +4,6 @@ import ms from "ms";
 import useGameStore from "../store";
 import { Game } from "../entities/Game";
 
-export interface GameGenre {
-    id: number;
-    name: string;
-}
-
 const apiClient = new APIClient<Game>('/games');
 
 const useGames = () => {
